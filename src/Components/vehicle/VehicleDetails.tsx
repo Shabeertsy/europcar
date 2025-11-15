@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { ArrowLeft, Search, Users, Car, Gauge, Loader2 } from "lucide-react";
+import { BASE_URL } from "../../config/constants";
 
 type Vehicle = {
   id: string | number;
@@ -49,7 +50,7 @@ export default function VehicleDetails() {
     async function fetchAccessories() {
       try {
         const res = await fetch(
-          `http://127.0.0.1:8000/api/accessories/?vehicle_uuid=${id}`
+          `${BASE_URL}/api/accessories/?vehicle_uuid=${id}`
         );
         if (!res.ok) throw new Error("Failed to fetch accessories");
         setAccessories(await res.json());
@@ -66,7 +67,7 @@ export default function VehicleDetails() {
       setError(null);
       try {
         const res = await fetch(
-          `http://127.0.0.1:8000/api/vehicles/details/?uuid=${id}`
+          `${BASE_URL}/api/vehicles/details/?uuid=${id}`
         );
         if (!res.ok) throw new Error("Vehicle not found");
         setVehicle(await res.json());

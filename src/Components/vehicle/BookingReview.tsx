@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeft, Loader2 } from "lucide-react";
+import { BASE_URL } from "../../config/constants";
 
 type LocationInfo = {
   id: string | number;
@@ -157,9 +158,10 @@ export default function BookingReview() {
       const payload = buildBookingPayload(form, booking);
 
       const apiPayload = { ...payload };
-    //   delete apiPayload.selected_accessories;
+      //   delete apiPayload.selected_accessories;
 
-      const response = await fetch('http://127.0.0.1:8000/api/booking/create/', {
+      // Use BASE_URL from constants for the API endpoint:
+      const response = await fetch(`${BASE_URL}/api/booking/create/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(apiPayload),

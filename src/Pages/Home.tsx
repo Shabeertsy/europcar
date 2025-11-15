@@ -14,6 +14,8 @@ import {
   Search,
 } from "lucide-react";
 
+import { BASE_URL } from "../config/constants";
+
 type Vehicle = {
   id: string | number;
   vehicle_name?: string;
@@ -119,8 +121,8 @@ export default function Home() {
 
       const apiUrl =
         params.toString().length > 0
-          ? `http://127.0.0.1:8000/api/vehicles/?${params.toString()}`
-          : "http://127.0.0.1:8000/api/vehicles/";
+          ? `${BASE_URL}/api/vehicles/?${params.toString()}`
+          : `${BASE_URL}/api/vehicles/`;
 
       const res = await fetch(apiUrl);
       if (!res.ok) throw new Error("Failed to fetch vehicles");
@@ -149,7 +151,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchLocations(type: "pickup" | "return") {
       try {
-        const res = await fetch(`http://127.0.0.1:8000/api/locations/?type=${type}`);
+        const res = await fetch(`${BASE_URL}/api/locations/?type=${type}`);
         if (!res.ok) throw new Error(`Failed to fetch ${type} locations`);
         return await res.json();
       } catch {
